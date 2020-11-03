@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {Experiment, Variant} from '../src';
 
-describe('Experiment', () => {
+describe('Experiment - shallow', () => {
 	it('should render the explicitly set variant', () => {
 		const component = shallow(
 			<Experiment activeVariant="A" name="Experiment-test">
@@ -40,3 +40,5 @@ describe('Experiment', () => {
 		expect(component).toThrow();
 	});
 });
+
+describe('Experiment - render (as HTML)', () => {});
