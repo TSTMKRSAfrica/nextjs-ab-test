@@ -3,16 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "babel-jest": "^26.6.2",
+    "enzyme-to-json": "^3.6.1",
+    "jest": "^26.6.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^4.0.0"
+    "react-dom": "^16.13.1"
   },
   "scripts": {
-    "test": "react-scripts test"
+    "lint": "xo --prettier --fix",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,6 +27,33 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "eslint-plugin-react": "^7.21.5",
+    "xo": "^0.34.1"
+  },
+  "xo": {
+    "extends": [
+      "plugin:react/recommended"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "./tests/_setup-enzyme-adapter.js"
     ]
   }
 }
