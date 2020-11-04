@@ -7,12 +7,12 @@
     "enzyme-to-json": "^3.6.1",
     "jest": "^26.6.2",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^16.13.1"
   },
   "scripts": {
     "lint": "xo --prettier --fix",
-    "test": "jest"
+    "test": "jest",
+    "build": "parcel build src/index.js --global nextjs-ab-test --no-cache"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,11 +30,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "eslint-plugin-react": "^7.21.5",
+    "parcel": "^1.12.4",
+    "react-dom": "^17.0.1",
     "xo": "^0.34.1"
   },
   "xo": {
