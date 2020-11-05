@@ -2,10 +2,8 @@
   "name": "nextjs-ab-test",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1"
-  },
+	"main": "dist/index.js",
+  "dependencies": {},
   "scripts": {
     "lint": "xo --prettier --fix",
     "test": "jest",
@@ -26,7 +24,11 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
+	"peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1"
+	},
+	"devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
