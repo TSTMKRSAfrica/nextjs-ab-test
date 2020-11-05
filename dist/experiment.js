@@ -35,26 +35,27 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-var sortedVariantsAndWeights = function sortedVariantsAndWeights(variantsWithWeights) {
+function sortedVariantsAndWeights(variantsWithWeights) {
   var sortedVariants = variantsWithWeights.map(function (variant) {
     return Object.keys(variant)[0];
   }).sort(function (a, b) {
-    return a - b;
+    return a + b;
   });
+  console.log(sortedVariants);
   var sortedWeights = variantsWithWeights.map(function (variant) {
     return variant[Object.keys(variant)[0]];
-  }).sort(function (a, b) {
-    return a - b;
   });
+  console.log(sortedWeights);
   var sortedVariantsWithWeights = variantsWithWeights.sort(function (a, b) {
-    return a - b;
+    return a[Object.keys(a)[0]] + b[Object.keys(b)[0]];
   });
+  console.log(sortedVariantsWithWeights);
   return {
     sortedVariants: sortedVariants,
     sortedWeights: sortedWeights,
     sortedVariantsWithWeights: sortedVariantsWithWeights
   };
-};
+}
 
 function selectVariant(variantsWithWeights, dispatch) {
   var _sortedVariantsAndWei = sortedVariantsAndWeights(variantsWithWeights),
@@ -83,7 +84,7 @@ function selectVariant(variantsWithWeights, dispatch) {
 
       weightedIndex -= weight;
 
-      if (weightedIndex < 0) {
+      if (weightedIndex <= 0) {
         selectedVariant = sortedVariants[index];
       }
     }

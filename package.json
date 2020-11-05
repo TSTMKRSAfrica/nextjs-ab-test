@@ -2,11 +2,14 @@
   "name": "nextjs-ab-test",
   "version": "0.0.1",
   "private": true,
-	"main": "dist/index.js",
-  "dependencies": {},
+  "main": "dist/index.js",
+  "dependencies": {
+    "react": "^17.0.1"
+  },
   "scripts": {
     "lint": "xo --prettier --fix",
-    "test": "jest",
+    "test": "jest --watch",
+    "example": "parcel ./examples/index.html --out-dir output",
     "build": "babel src -d dist --copy-files"
   },
   "eslintConfig": {
@@ -24,11 +27,11 @@
       "last 1 safari version"
     ]
   },
-	"peerDependencies": {
+  "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.13.1"
-	},
-	"devDependencies": {
+  },
+  "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -39,6 +42,7 @@
     "enzyme-to-json": "^3.6.1",
     "eslint-plugin-react": "^7.21.5",
     "jest": "^26.6.2",
+    "parcel": "^1.12.4",
     "react-dom": "^17.0.1",
     "xo": "^0.34.1"
   },

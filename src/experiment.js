@@ -8,12 +8,16 @@ import {
 	reducerEvents
 } from './experiment-context';
 
-const sortedVariantsAndWeights = (variantsWithWeights) => {
-	let sortedVariants = variantsWithWeights.map(variant => Object.keys(variant)[0]).sort((a, b) => a - b);
+function sortedVariantsAndWeights(variantsWithWeights) {
+	let sortedVariants = variantsWithWeights.map(variant => Object.keys(variant)[0]).sort((a, b) => a + b);
+	console.log(sortedVariants);
 
-	let sortedWeights = variantsWithWeights.map(variant => variant[Object.keys(variant)[0]]).sort((a, b) => a - b);
+	let sortedWeights = variantsWithWeights.map(variant => variant[Object.keys(variant)[0]]);
+	console.log(sortedWeights);
 
-	let sortedVariantsWithWeights = variantsWithWeights.sort((a, b) => a - b);
+	let sortedVariantsWithWeights = variantsWithWeights.sort((a, b) => a[Object.keys(a)[0]] + b[Object.keys(b)[0]]);
+
+	console.log(sortedVariantsWithWeights);
 
 	return {
 		sortedVariants, 
@@ -38,7 +42,7 @@ function selectVariant(variantsWithWeights, dispatch) {
 	let selectedVariant = sortedVariants[sortedVariants.length - 1];
 	for (const [index, weight] of sortedWeights.entries()) {
 		weightedIndex -= weight;
-		if (weightedIndex < 0) {
+		if (weightedIndex <= 0) {
 			selectedVariant = sortedVariants[index];
 		}
 	}
