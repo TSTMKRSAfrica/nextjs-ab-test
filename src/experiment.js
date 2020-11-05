@@ -11,7 +11,7 @@ import {
 const sortedVariantsAndWeights = (variantsWithWeights) => {
 	let sortedVariants = variantsWithWeights.map(variant => Object.keys(variant)[0]).sort((a, b) => a - b);
 
-	let sortedWeights = variantsWithWeights.map(variant => variant[Object.keys(variant)[0]]).sort(a, b => a - b);
+	let sortedWeights = variantsWithWeights.map(variant => variant[Object.keys(variant)[0]]).sort((a, b) => a - b);
 
 	let sortedVariantsWithWeights = variantsWithWeights.sort((a, b) => a - b);
 
