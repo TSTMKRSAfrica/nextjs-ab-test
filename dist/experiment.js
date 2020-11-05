@@ -43,7 +43,7 @@ var sortedVariantsAndWeights = function sortedVariantsAndWeights(variantsWithWei
   });
   var sortedWeights = variantsWithWeights.map(function (variant) {
     return variant[Object.keys(variant)[0]];
-  }).sort(a, function (b) {
+  }).sort(function (a, b) {
     return a - b;
   });
   var sortedVariantsWithWeights = variantsWithWeights.sort(function (a, b) {
