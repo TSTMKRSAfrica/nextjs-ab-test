@@ -8,11 +8,26 @@ import {
 	reducerEvents
 } from './experiment-context';
 
-function selectVariant(weights, variants, dispatch) {
+const sortedVariantsAndWeights = (variantsWithWeights) => {
+	let sortedVariants = variantsWithWeights.map(variant => Object.keys(variant)[0]).sort((a, b) => a - b);
+
+	let sortedWeights = variantsWithWeights.map(variant => variant[Object.keys(variant)[0]]).sort(a, b => a - b);
+
+	let sortedVariantsWithWeights = variantsWithWeights.sort((a, b) => a - b);
+
+	return {
+		sortedVariants, 
+		sortedWeights,
+		sortedVariantsWithWeights
+	}
+}
+
+function selectVariant(variantsWithWeights, dispatch) {
+
+	const { sortedVariants, sortedWeights } = sortedVariantsAndWeights(variantsWithWeights);
+
 	// eslint-disable-next-line unicorn/no-reduce
-	const weightSum = weights.reduce((a, b) => {
-		return a + b;
-	}, 0);
+	const weightSum = sortedWeights.reduce((a, b) => a + b, 0);
 
 	// A random number between 0 and weightSum
 	let weightedIndex = Math.floor(Math.random() * weightSum);
@@ -20,12 +35,11 @@ function selectVariant(weights, variants, dispatch) {
 	// Iterate through the sorted weights, and deduct each from the weightedIndex.
 	// If weightedIndex drops < 0, select the variant. If weightedIndex does not
 	// drop < 0, default to the last variant in the array that is initially assigned.
-	let selectedVariant = variants[variants.length - 1];
-	for (const [index, weight] of weights.entries()) {
+	let selectedVariant = sortedVariants[sortedVariants.length - 1];
+	for (const [index, weight] of sortedWeights.entries()) {
 		weightedIndex -= weight;
 		if (weightedIndex < 0) {
-			selectedVariant = variants[index];
-			break;
+			selectedVariant = sortedVariants[index];
 		}
 	}
 
@@ -54,7 +68,11 @@ function Experiment({
 		}
 
 		if (!activeVariant && !state.activeVariant) {
-			selectVariant(weights, state.variantsProvided, dispatch);
+			const variantsWithWeights = state.variantsProvided.map((variant, i) => ({
+				[variant]: weights[i]
+			}));
+
+			selectVariant(variantsWithWeights, dispatch);
 		}
 	}, [state.activeVariant, activeVariant]);
 

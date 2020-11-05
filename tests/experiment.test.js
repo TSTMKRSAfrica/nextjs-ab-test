@@ -19,6 +19,7 @@ describe('Experiment - shallow', () => {
 	});
 
 	// This test needs to be tweaked cause in different times, it could fail.
+	// Actually that is what we expect due to the weights provided. 
 	it('should render Variant A with a weight of 70', () => {
 		const component = shallow(
 			<Experiment weights={[70, 30]} name="Experiment-test">
@@ -70,8 +71,8 @@ describe('Experiment - shallow', () => {
 	})
 });
 
-describe.only('Experiment - render (as HTML)', () => {
-	it('should render the explicitly set variant', () => {
+describe('Experiment - render (as HTML)', () => {
+	it('should render the explicitly set variant - A', () => {
 		const component = render(
 			<Experiment activeVariant="A" name="Experiment-test">
 				<Variant name="A">
@@ -86,7 +87,23 @@ describe.only('Experiment - render (as HTML)', () => {
 		expect(component.html()).toContain("Variant A");
 	});
 
-	it.only("should render Variant B with a weight of 70", () => {
+	it('should render the explicitly set variant - B', () => {
+		const component = render(
+			<Experiment activeVariant="B" name="Experiment-test">
+				<Variant name="A">
+					<div>Variant A</div>
+				</Variant>
+				<Variant name="B">
+					<div>Variant B</div>
+				</Variant>
+			</Experiment>
+		);
+
+		expect(component.html()).toContain("Variant B");
+	});
+
+	//Constantly renders A instead of B. Why?
+	it("should render Variant B with a weight of 70", () => {
 		const component = render(
 			<Experiment weights={[30, 70]} name="Experiment-test">
 				<Variant name="A">
