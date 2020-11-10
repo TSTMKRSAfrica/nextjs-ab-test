@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDom from "react-dom";
-import { Experiment, Variant } from "../src";
+import React from 'react';
+import ReactDom from 'react-dom';
+import {Experiment, Variant} from '../src';
 
 const TestExperiment = () => (
 	<Experiment weights={[70, 30]} name="Experiment-test">
@@ -13,7 +13,4 @@ const TestExperiment = () => (
 	</Experiment>
 );
 
-ReactDom.render(
-	<TestExperiment />,
-	document.getElementById("root")
-);
+ReactDom.render(<TestExperiment />, document.querySelector('#root'));

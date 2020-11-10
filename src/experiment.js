@@ -9,26 +9,29 @@ import {
 } from './experiment-context';
 
 function sortedVariantsAndWeights(variantsWithWeights) {
-	let sortedVariants = variantsWithWeights.map(variant => Object.keys(variant)[0]).sort((a, b) => a + b);
-	console.log(sortedVariants);
+	const sortedVariants = variantsWithWeights
+		.map((variant) => Object.keys(variant)[0])
+		.sort((a, b) => a + b);
 
-	let sortedWeights = variantsWithWeights.map(variant => variant[Object.keys(variant)[0]]);
-	console.log(sortedWeights);
+	const sortedWeights = variantsWithWeights.map(
+		(variant) => variant[Object.keys(variant)[0]]
+	);
 
-	let sortedVariantsWithWeights = variantsWithWeights.sort((a, b) => a[Object.keys(a)[0]] + b[Object.keys(b)[0]]);
-
-	console.log(sortedVariantsWithWeights);
+	const sortedVariantsWithWeights = variantsWithWeights.sort(
+		(a, b) => a[Object.keys(a)[0]] + b[Object.keys(b)[0]]
+	);
 
 	return {
-		sortedVariants, 
+		sortedVariants,
 		sortedWeights,
 		sortedVariantsWithWeights
-	}
+	};
 }
 
 function selectVariant(variantsWithWeights, dispatch) {
-
-	const { sortedVariants, sortedWeights } = sortedVariantsAndWeights(variantsWithWeights);
+	const {sortedVariants, sortedWeights} = sortedVariantsAndWeights(
+		variantsWithWeights
+	);
 
 	// eslint-disable-next-line unicorn/no-reduce
 	const weightSum = sortedWeights.reduce((a, b) => a + b, 0);
@@ -40,10 +43,12 @@ function selectVariant(variantsWithWeights, dispatch) {
 	// If weightedIndex drops < 0, select the variant. If weightedIndex does not
 	// drop < 0, default to the last variant in the array that is initially assigned.
 	let selectedVariant = sortedVariants[sortedVariants.length - 1];
-	for (const [index, weight] of sortedWeights.entries()) {
-		weightedIndex -= weight;
-		if (weightedIndex <= 0) {
-			selectedVariant = sortedVariants[index];
+
+	for (const [i, sortedWeight] of sortedWeights.entries()) {
+		weightedIndex -= sortedWeight;
+		if (weightedIndex < 0) {
+			selectedVariant = sortedVariants[i];
+			break;
 		}
 	}
 

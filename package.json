@@ -10,7 +10,8 @@
     "lint": "xo --prettier --fix",
     "test": "jest --watch",
     "example": "parcel ./examples/index.html --out-dir output",
-    "build": "babel src -d dist --copy-files"
+    "build": "babel src -d dist --copy-files",
+		"pre-push": "npm run lint --  && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +49,11 @@
     "xo": "^0.34.1"
   },
   "xo": {
+		"ignores": [
+			"./tests",
+			"./examples",
+			"./dist"
+		],
     "extends": [
       "plugin:react/recommended"
     ]
@@ -56,8 +62,10 @@
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react",
-			"minify"
-    ]
+			["minify", {
+				"builtIns": false
+			}]
+		]
   },
   "jest": {
     "snapshotSerializers": [
