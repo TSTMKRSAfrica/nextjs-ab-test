@@ -4,14 +4,14 @@
   "private": true,
   "main": "dist/index.js",
   "dependencies": {
-    "react": "^17.0.1"
+    "react": "^16.13.1"
   },
   "scripts": {
     "lint": "xo --prettier --fix",
     "test": "jest --watch",
     "example": "parcel ./examples/index.html --out-dir output",
     "build": "babel src -d dist --copy-files",
-		"pre-push": "npm run lint --  && npm run build"
+    "pre-push": "npm run lint && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,16 +44,17 @@
     "enzyme-to-json": "^3.6.1",
     "eslint-plugin-react": "^7.21.5",
     "jest": "^26.6.2",
+    "jsdom": "^16.4.0",
     "parcel": "^1.12.4",
     "react-dom": "^17.0.1",
     "xo": "^0.34.1"
   },
   "xo": {
-		"ignores": [
-			"./tests",
-			"./examples",
-			"./dist"
-		],
+    "ignores": [
+      "./tests",
+      "./examples",
+      "./dist"
+    ],
     "extends": [
       "plugin:react/recommended"
     ]
@@ -62,10 +63,13 @@
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react",
-			["minify", {
-				"builtIns": false
-			}]
-		]
+      [
+        "minify",
+        {
+          "builtIns": false
+        }
+      ]
+    ]
   },
   "jest": {
     "snapshotSerializers": [
