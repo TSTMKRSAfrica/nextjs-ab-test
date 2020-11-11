@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import {Experiment, Variant} from '../src';
+import {Experiment, useExperiment, Variant} from '../src';
 
 const testArray = (length = 4) => Array.from({length});
 
@@ -122,6 +122,35 @@ describe('Experiment - shallow', () => {
 		);
 	});
 });
+
+describe.only("useExperiment hook", () => {
+	it("should render a variant", () => {
+		const NameTag = () => {
+			// FIXME: Variant and variantName not returning values
+			const { Variant, variantName } = useExperiment({
+				name: "Experiment-test",
+				variants: {
+					A: <div>Ash</div>,
+					B: <div>Gary</div>
+				},
+			});
+
+			return (
+				<div>
+					{
+						variantName && 
+							<Variant />
+					}
+				</div>
+			)
+		};
+
+		const component = shallow(<NameTag />);
+
+		console.log(component.children().html());
+		expect(component.contains(<div>Ash</div>) || component.contains(<div>Gary</div>)).toBe(true);
+	});
+})
 
 // Need to figure why mount does not work. 
 //

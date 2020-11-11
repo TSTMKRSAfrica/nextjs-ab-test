@@ -28,7 +28,7 @@ function sortedVariantsAndWeights(variantsWithWeights) {
 	};
 }
 
-function selectVariant(variantsWithWeights, dispatch) {
+function selectVariant(variantsWithWeights) {
 	const {sortedVariants, sortedWeights} = sortedVariantsAndWeights(
 		variantsWithWeights
 	);
@@ -52,7 +52,46 @@ function selectVariant(variantsWithWeights, dispatch) {
 		}
 	}
 
-	dispatch({type: reducerEvents.setActiveVariant, variant: selectedVariant});
+	return {
+		type: reducerEvents.setActiveVariant,
+		variant: selectedVariant
+	}
+}
+
+function useExperiment({ name, activeVariant = null, variants = {}, weights = [50, 50] }){
+	let definedActiveVariant;
+
+	const variantNames = Object.keys(variants);
+
+	useEffect(() => {
+		if(activeVariant){
+			definedActiveVariant = activeVariant;
+		}
+
+		if(!definedActiveVariant && !activeVariant){
+			const variantsWithWeights = variantNames.map((variant, i) => ({
+				[variant]: weights[i]
+			}));
+
+			const { variant } = selectVariant(variantsWithWeights);
+
+			definedActiveVariant = variant;
+		}
+	}, [activeVariant, definedActiveVariant]);
+
+	return {
+		Variant: () => <>{variants[definedActiveVariant]}</>,
+		experimentName: name,
+		variantName: definedActiveVariant
+	}
+}
+
+useExperiment.propTypes = {
+	name: PropTypes.string.isRequired,
+	activeVariant: PropTypes.string,
+	weights: PropTypes.arrayOf(PropTypes.number),
+	variants: PropTypes.objectOf(PropTypes.node),
+	variantNames: PropTypes.arrayOf(PropTypes.string)
 }
 
 function Experiment({
@@ -81,7 +120,7 @@ function Experiment({
 				[variant]: weights[i]
 			}));
 
-			selectVariant(variantsWithWeights, dispatch);
+			dispatch(selectVariant(variantsWithWeights));
 		}
 	}, [state.activeVariant, activeVariant]);
 
@@ -113,4 +152,7 @@ Experiment.propTypes = {
 	activeVariant: PropTypes.string
 };
 
-export default Experiment;
+export {
+	Experiment,
+	useExperiment
+};

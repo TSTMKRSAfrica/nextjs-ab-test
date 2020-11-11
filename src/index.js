@@ -1,4 +1,4 @@
-import Experiment from './experiment';
+import { Experiment, useExperiment } from './experiment';
 import Variant from './variant';
 
-export {Experiment, Variant};
+export {Experiment, useExperiment, Variant};
