@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import {Experiment, Variant} from '../src';
+import {Experiment, useExperiment, Variant} from '../src';
 
-const TestExperiment = () => (
+const TestExperiment1 = () => (
 	<Experiment weights={[70, 30]} name="Experiment-test">
 		<Variant name="A">
 			<div>Variant A</div>
@@ -13,4 +13,27 @@ const TestExperiment = () => (
 	</Experiment>
 );
 
-ReactDom.render(<TestExperiment />, document.querySelector('#root'));
+const TestExperiment2 = () => {
+	const { Variant } = useExperiment({
+		variants: {
+			A: <div>Ash</div>,
+			B: <div>Gary</div>
+		},
+		name: "Experiment-test"
+	});
+
+	return (
+		<div>
+			<Variant />
+		</div>
+	)
+}
+
+const Example = () => (
+	<>
+		<TestExperiment1 />
+		<TestExperiment2 />
+	</>
+)
+
+ReactDom.render(<Example />, document.querySelector('#root'));

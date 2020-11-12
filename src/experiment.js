@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
 	ExperimentDispatcherContext,
@@ -59,13 +59,13 @@ function selectVariant(variantsWithWeights) {
 }
 
 function useExperiment({ name, activeVariant = null, variants = {}, weights = [50, 50] }){
-	let definedActiveVariant;
+	const [ definedActiveVariant, setActiveVariant ] = useState(null);
 
 	const variantNames = Object.keys(variants);
 
 	useEffect(() => {
 		if(activeVariant){
-			definedActiveVariant = activeVariant;
+			setActiveVariant(activeVariant);
 		}
 
 		if(!definedActiveVariant && !activeVariant){
@@ -75,14 +75,15 @@ function useExperiment({ name, activeVariant = null, variants = {}, weights = [5
 
 			const { variant } = selectVariant(variantsWithWeights);
 
-			definedActiveVariant = variant;
+			setActiveVariant(variant);
 		}
-	}, [activeVariant, definedActiveVariant]);
+	}, [definedActiveVariant, activeVariant]);
 
 	return {
 		Variant: () => <>{variants[definedActiveVariant]}</>,
 		experimentName: name,
-		variantName: definedActiveVariant
+		variantName: definedActiveVariant,
+		experimentLoaded: definedActiveVariant ? true : false
 	}
 }
 
