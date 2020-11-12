@@ -98,7 +98,6 @@ useExperiment.propTypes = {
 	activeVariant: PropTypes.string,
 	weights: PropTypes.arrayOf(PropTypes.number),
 	variants: PropTypes.objectOf(PropTypes.node),
-	variantNames: PropTypes.arrayOf(PropTypes.string)
 };
 
 function Experiment({
