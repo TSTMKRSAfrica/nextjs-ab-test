@@ -55,36 +55,42 @@ function selectVariant(variantsWithWeights) {
 	return {
 		type: reducerEvents.setActiveVariant,
 		variant: selectedVariant
-	}
+	};
 }
 
-function useExperiment({ name, activeVariant = null, variants = {}, weights = [50, 50] }){
-	const [ definedActiveVariant, setActiveVariant ] = useState(null);
+function useExperiment({
+	name,
+	activeVariant = null,
+	variants = {},
+	weights = [50, 50]
+}) {
+	const [definedActiveVariant, setActiveVariant] = useState(null);
 
 	const variantNames = Object.keys(variants);
 
 	useEffect(() => {
-		if(activeVariant){
+		if (activeVariant) {
 			setActiveVariant(activeVariant);
 		}
 
-		if(!definedActiveVariant && !activeVariant){
+		if (!definedActiveVariant && !activeVariant) {
 			const variantsWithWeights = variantNames.map((variant, i) => ({
 				[variant]: weights[i]
 			}));
 
-			const { variant } = selectVariant(variantsWithWeights);
+			const {variant} = selectVariant(variantsWithWeights);
 
 			setActiveVariant(variant);
 		}
 	}, [definedActiveVariant, activeVariant]);
 
 	return {
+		// eslint-disable-next-line react/display-name
 		Variant: () => <>{variants[definedActiveVariant]}</>,
 		experimentName: name,
 		variantName: definedActiveVariant,
-		experimentLoaded: definedActiveVariant ? true : false
-	}
+		experimentLoaded: Boolean(definedActiveVariant)
+	};
 }
 
 useExperiment.propTypes = {
@@ -93,7 +99,7 @@ useExperiment.propTypes = {
 	weights: PropTypes.arrayOf(PropTypes.number),
 	variants: PropTypes.objectOf(PropTypes.node),
 	variantNames: PropTypes.arrayOf(PropTypes.string)
-}
+};
 
 function Experiment({
 	children,
@@ -153,7 +159,4 @@ Experiment.propTypes = {
 	activeVariant: PropTypes.string
 };
 
-export {
-	Experiment,
-	useExperiment
-};
+export {Experiment, useExperiment};
