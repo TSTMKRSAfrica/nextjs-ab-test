@@ -1,10 +1,10 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import {Experiment, Variant} from '../src';
+import {Experiment, useExperiment, Variant} from '../src';
 
 const testArray = (length = 4) => Array.from({length});
 
-describe('Experiment - shallow', () => {
+describe('Experiment Component', () => {
 	it('should render the explicitly set variant', () => {
 		const component = shallow(
 			<Experiment activeVariant="A" name="Experiment-test">
@@ -123,52 +123,69 @@ describe('Experiment - shallow', () => {
 	});
 });
 
-// Need to figure why mount does not work. 
-//
-// describe.only('Experiment - mount', () => {
-// 	it.only('should render the explicitly set variant - A', () => {
-// 		const component = mount((
-// 			<Experiment activeVariant="A" name="Experiment-test">
-// 				<Variant name="A">
-// 					<div>Variant A</div>
-// 				</Variant>
-// 				<Variant name="B">
-// 					<div>Variant B</div>
-// 				</Variant>
-// 			</Experiment>
-// 		));
+describe("useExperiment hook", () => {
+	it("should render a variant", () => {
+		const NameTag = () => {
+			const { Variant } = useExperiment({
+				name: "Experiment-test",
+				variants: {
+					A: <div>Ash</div>,
+					B: <div>Gary</div>
+				},
+			});
 
-// 		console.log(component);
-// 	});
+			return (
+				<div>
+					<Variant />
+				</div>
+			)
+		};
 
-// 	it('should render the explicitly set variant - B', () => {
-// 		const component = mount(
-// 			<Experiment activeVariant="B" name="Experiment-test">
-// 				<Variant name="A">
-// 					<div>Variant A</div>
-// 				</Variant>
-// 				<Variant name="B">
-// 					<div>Variant B</div>
-// 				</Variant>
-// 			</Experiment>
-// 		);
+		const component = mount(<NameTag />);
 
-// 		expect(component.html()).toContain('Variant B');
-// 	});
+		expect(component.contains(<div>Ash</div>) || component.contains(<div>Gary</div>)).toBe(true);
+	});
 
-// 	// Constantly renders A instead of B. Why?
-// 	it('should render Variant B with a weight of 70', () => {
-// 		const component = mount(
-// 			<Experiment weights={[30, 70]} name="Experiment-test">
-// 				<Variant name="A">
-// 					<div>Variant A</div>
-// 				</Variant>
-// 				<Variant name="B">
-// 					<div>Variant B</div>
-// 				</Variant>
-// 			</Experiment>
-// 		);
+	it("should render the variant name", () => {
+		const NameTag = () => {
+			const { variantName } = useExperiment({
+				name: "Experiment-test",
+				variants: {
+					A: <div>Ash</div>,
+					B: <div>Gary</div>
+				},
+			});
 
-// 		expect(component.html()).toContain('Variant B');
-// 	});
-// });
+			return (
+				<div>
+					{variantName}
+				</div>
+			)
+		};
+
+		const component = mount(<NameTag />);
+
+		expect(component.contains("A") || component.contains("B")).toBe(true);
+	});
+
+	// Need a better way of checking if variables are being exposed and are there.
+	// it("should expose the variant name,  experiment name, and check if experiment has loaded", () => {
+	// 	const NameTag = () => {
+	// 		const { variantName, experimentName, experimentLoaded, Variant } = useExperiment({
+	// 			name: "Experiment-test",
+	// 			variants: {
+	// 				A: <div>Ash</div>,
+	// 				B: <div>Gary</div>
+	// 			}
+	// 		});
+
+	// 		return (
+	// 			<div>
+	// 				<Variant />
+	// 			</div>
+	// 		)
+	// 	};
+	// })
+});
+
+

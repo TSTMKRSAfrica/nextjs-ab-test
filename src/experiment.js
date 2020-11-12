@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
 	ExperimentDispatcherContext,
@@ -28,7 +28,7 @@ function sortedVariantsAndWeights(variantsWithWeights) {
 	};
 }
 
-function selectVariant(variantsWithWeights, dispatch) {
+function selectVariant(variantsWithWeights) {
 	const {sortedVariants, sortedWeights} = sortedVariantsAndWeights(
 		variantsWithWeights
 	);
@@ -52,8 +52,53 @@ function selectVariant(variantsWithWeights, dispatch) {
 		}
 	}
 
-	dispatch({type: reducerEvents.setActiveVariant, variant: selectedVariant});
+	return {
+		type: reducerEvents.setActiveVariant,
+		variant: selectedVariant
+	};
 }
+
+function useExperiment({
+	name,
+	activeVariant = null,
+	variants = {},
+	weights = [50, 50]
+}) {
+	const [definedActiveVariant, setActiveVariant] = useState(null);
+
+	const variantNames = Object.keys(variants);
+
+	useEffect(() => {
+		if (activeVariant) {
+			setActiveVariant(activeVariant);
+		}
+
+		if (!definedActiveVariant && !activeVariant) {
+			const variantsWithWeights = variantNames.map((variant, i) => ({
+				[variant]: weights[i]
+			}));
+
+			const {variant} = selectVariant(variantsWithWeights);
+
+			setActiveVariant(variant);
+		}
+	}, [definedActiveVariant, activeVariant]);
+
+	return {
+		// eslint-disable-next-line react/display-name
+		Variant: () => <>{variants[definedActiveVariant]}</>,
+		experimentName: name,
+		variantName: definedActiveVariant,
+		experimentLoaded: Boolean(definedActiveVariant)
+	};
+}
+
+useExperiment.propTypes = {
+	name: PropTypes.string.isRequired,
+	activeVariant: PropTypes.string,
+	weights: PropTypes.arrayOf(PropTypes.number),
+	variants: PropTypes.objectOf(PropTypes.node),
+};
 
 function Experiment({
 	children,
@@ -81,7 +126,7 @@ function Experiment({
 				[variant]: weights[i]
 			}));
 
-			selectVariant(variantsWithWeights, dispatch);
+			dispatch(selectVariant(variantsWithWeights));
 		}
 	}, [state.activeVariant, activeVariant]);
 
@@ -113,4 +158,4 @@ Experiment.propTypes = {
 	activeVariant: PropTypes.string
 };
 
-export default Experiment;
+export {Experiment, useExperiment};
