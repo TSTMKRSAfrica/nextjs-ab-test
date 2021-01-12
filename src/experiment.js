@@ -88,8 +88,8 @@ function useExperiment({
 		// eslint-disable-next-line react/display-name
 		Variant: () => <>{variants[definedActiveVariant]}</>,
 		experimentName: name,
-		variantName: definedActiveVariant,
-		experimentLoaded: Boolean(definedActiveVariant)
+		activeVariant: definedActiveVariant,
+		experimentLoaded: Boolean(definedActiveVariant),
 	};
 }
 
