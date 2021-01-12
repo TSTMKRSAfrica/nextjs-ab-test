@@ -103,5 +103,15 @@ The main container component. Requires the `<Variant />` as a child.
     	    - Example - `{ A: <div>Variant A</div>, B: <div>Variant B</div> }`
     	    - *Required*
 
-
+- Returns:
+    - Type - Object
+    - Props:
+        -  `Variant`
+            - Type - React.Element
+        - `experimentName`
+            - Type - String
+        - `activeVariant`
+            - Type - String
+        - `experimentLoaded` 
+            - Type - Boolean
 

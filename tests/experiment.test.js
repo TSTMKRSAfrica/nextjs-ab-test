@@ -146,9 +146,9 @@ describe("useExperiment hook", () => {
 		expect(component.contains(<div>Ash</div>) || component.contains(<div>Gary</div>)).toBe(true);
 	});
 
-	it("should render the variant name", () => {
+	it("should render the variant name (which is the active variant)", () => {
 		const NameTag = () => {
-			const { variantName } = useExperiment({
+			const { activeVariant } = useExperiment({
 				name: "Experiment-test",
 				variants: {
 					A: <div>Ash</div>,
@@ -158,7 +158,7 @@ describe("useExperiment hook", () => {
 
 			return (
 				<div>
-					{variantName}
+					{activeVariant}
 				</div>
 			)
 		};
