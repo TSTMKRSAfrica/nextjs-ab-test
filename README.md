@@ -1,5 +1,5 @@
-# nextjs-ab-test (WIP)
-A minimal, react-friendly ab-test library built for server side rendering (SSR) and next.js
+# nextjs-ab-test
+A minimal, react-friendly ab-test library purpose-built for server side rendering (SSR) and Next.js
 
 ## Installation
 ` npm install --save nextjs-ab-test` - *Not available via NPM just yet ;)*
