@@ -1,7 +1,6 @@
 {
   "name": "@tstmkrs/nextjs-ab-test",
   "version": "0.0.2",
-  "private": true,
   "main": "dist/index.js",
   "dependencies": {
     "react": "^16.13.1"
