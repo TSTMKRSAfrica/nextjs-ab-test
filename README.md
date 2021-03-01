@@ -11,18 +11,22 @@ A minimal, react-friendly ab-test library built for server side rendering (SSR) 
 ```jsx
 import { Experiment, Variant } from "nextjs-ab-test";
 
-<Experiment name="Experiment-test">
-	<Variant name="A">
-		<div>
-			Variant A
-		</div>
-	</Variant>
-	<Variant name="B">
-		<div>
-			Variant B
-		</div>
-	</Variant>
-</Experiment>
+export default function(){
+    return (
+        <Experiment name="Experiment-test">
+          <Variant name="A">
+            <div>
+              Variant A
+            </div>
+          </Variant>
+          <Variant name="B">
+            <div>
+              Variant B
+            </div>
+          </Variant>
+        </Experiment>
+    )
+}
 ```
 
 ### Hook Example
@@ -117,10 +121,15 @@ The main container component. Requires the `<Variant />` as a child.
 
 
 ## Testing
-We use Enzyme with Jest to test this package. To run these tests, run `npm run test` and the tests will automatically be run. 
+We use Enzyme with Jest to test this package. To run these tests, run `npm run test` and the tests will automatically run. 
 
 ### Coverage
-These tests are run against the latest version of Node and React. 
+These tests are run using:
+- Node: v14.15.4
+- NPM: v7.5.6
+- React: 16.13.1 and above
+- Jest: 26.6.2 and above
+- Enzyme: 3.11.0 and above
 
 ## Alternative Libs
 - [@marvelapp/react-ab-test](https://www.npmjs.com/package/@marvelapp/react-ab-test)
