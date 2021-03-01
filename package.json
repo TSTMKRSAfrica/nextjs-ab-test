@@ -1,6 +1,6 @@
 {
   "name": "@tstmkrs/nextjs-ab-test",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
 	"keywords": [
 		"next","next.js", "react", "react-component", "testing", "ab test", "A/B testing", "a/b", "ab"
