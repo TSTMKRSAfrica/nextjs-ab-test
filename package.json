@@ -2,6 +2,10 @@
   "name": "@tstmkrs/nextjs-ab-test",
   "version": "0.0.2",
   "main": "dist/index.js",
+	"keywords": [
+		"next","next.js", "react", "react-component", "testing", "ab test", "A/B testing", "a/b", "ab"
+	],
+	"license" : "MIT",
   "dependencies": {
     "react": "^16.13.1"
   },
