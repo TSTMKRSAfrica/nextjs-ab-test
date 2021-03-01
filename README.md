@@ -2,14 +2,14 @@
 A minimal, react-friendly ab-test library purpose-built for server side rendering (SSR) and Next.js
 
 ## Installation
-` npm install --save nextjs-ab-test` - *Not available via NPM just yet ;)*
+` npm install --save @tstmkrs/nextjs-ab-test` 
 
 
 ## Examples
 
 ### Class Component Example
 ```jsx
-import { Experiment, Variant } from "nextjs-ab-test";
+import { Experiment, Variant } from "@tstmkrs/nextjs-ab-test";
 
 export default function(){
     return (
@@ -31,7 +31,7 @@ export default function(){
 
 ### Hook Example
 ```jsx
-import { useExperiment } from "nextjs-ab-test";
+import { useExperiment } from "@tstmkrs/nextjs-ab-test";
 
 const TestExperiment = () => {
 	const { Variant } = useExperiment({
@@ -145,6 +145,8 @@ If its bug squashing you seek, please provide:
 - What you should be experiencing
 - Any code you think that can help explain what is going on
 
+## Blog Post
+Please take a look at [this blog post](https://www.notion.so/A-Next-js-A-B-testing-library-6863d652cf684c85b4b37700c7bb9de5) to learn about our adventure into creating this
 
 ## Contact
 In order to get in contact with us, all you have to do is email [development@tastemakersafrica.com](mailto:development@tastemakersafrica.com) and we will get to you when we can. 

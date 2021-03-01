@@ -89,7 +89,7 @@ function useExperiment({
 		Variant: () => <>{variants[definedActiveVariant]}</>,
 		experimentName: name,
 		activeVariant: definedActiveVariant,
-		experimentLoaded: Boolean(definedActiveVariant),
+		experimentLoaded: Boolean(definedActiveVariant)
 	};
 }
 
@@ -97,7 +97,7 @@ useExperiment.propTypes = {
 	name: PropTypes.string.isRequired,
 	activeVariant: PropTypes.string,
 	weights: PropTypes.arrayOf(PropTypes.number),
-	variants: PropTypes.objectOf(PropTypes.node),
+	variants: PropTypes.objectOf(PropTypes.node)
 };
 
 function Experiment({
