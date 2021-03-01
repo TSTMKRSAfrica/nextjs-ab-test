@@ -11,18 +11,22 @@ A minimal, react-friendly ab-test library purpose-built for server side renderin
 ```jsx
 import { Experiment, Variant } from "nextjs-ab-test";
 
-<Experiment name="Experiment-test">
-	<Variant name="A">
-		<div>
-			Variant A
-		</div>
-	</Variant>
-	<Variant name="B">
-		<div>
-			Variant B
-		</div>
-	</Variant>
-</Experiment>
+export default function(){
+    return (
+        <Experiment name="Experiment-test">
+          <Variant name="A">
+            <div>
+              Variant A
+            </div>
+          </Variant>
+          <Variant name="B">
+            <div>
+              Variant B
+            </div>
+          </Variant>
+        </Experiment>
+    )
+}
 ```
 
 ### Hook Example
@@ -115,3 +119,32 @@ The main container component. Requires the `<Variant />` as a child.
         - `experimentLoaded` 
             - Type - Boolean
 
+
+## Testing
+We use Enzyme with Jest to test this package. To run these tests, run `npm run test` and the tests will automatically run. 
+
+### Coverage
+These tests are run using:
+- Node: v14.15.4
+- NPM: v7.5.6
+- React: 16.13.1 and above
+- Jest: 26.6.2 and above
+- Enzyme: 3.11.0 and above
+
+## Alternative Libs
+- [@marvelapp/react-ab-test](https://www.npmjs.com/package/@marvelapp/react-ab-test)
+- [react-ab-test](https://github.com/pushtell/react-ab-test)
+
+## Issues
+If you are experiencing any bugs or have some ideas for this package, please open up an issue in this repo. 
+
+If its bug squashing you seek, please provide:
+- NPM and Node Version
+- React Version you are currently using
+- What you are experiencing
+- What you should be experiencing
+- Any code you think that can help explain what is going on
+
+
+## Contact
+In order to get in contact with us, all you have to do is email [development@tastemakersafrica.com](mailto:development@tastemakersafrica.com) and we will get to you when we can. 
